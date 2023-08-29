@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 public class AuthService {
 
     private final UserRepository userRepository;
+    private final JwtService jwtService;
     public AuthResponseToken login(LoginRequest request) {
         return null;
     }
@@ -23,7 +24,7 @@ public class AuthService {
                 .country(request.getCountry())
                 .role(Role.USER);
         userRepository.save(user);
-        //jwtservice not made yet
-        return AuthResponseToken.builder().token(null).build();
+
+        return AuthResponseToken.builder().token(jwtService.getToken(user)).build();
     }
 }
